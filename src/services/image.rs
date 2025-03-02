@@ -2,7 +2,7 @@ use axum::response::Response;
 use image::DynamicImage;
 use reqwest::StatusCode;
 use std::path::PathBuf;
-use tracing::error;
+use tracing::info;
 
 use crate::{
     constants::CDN_ROOT,
@@ -21,7 +21,7 @@ pub async fn process_image_request(
     file_path: &PathBuf,
 ) -> Result<Response, StatusCode> {
     if file_path.exists() {
-        error!("File exists but respond with Rust: {:?}", file_path);
+        info!("File exists, respond with Rust: {:?}", file_path);
         return Ok(response_file(file_path).await);
     }
 
